@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "django-blog-app"
+version = "0.1.0"
+description = ""
+authors = ["event1310 <event990@interia.pl>"]
+readme = "README.md"
+packages = [{include = "django_blog_app"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^4.1.5"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
