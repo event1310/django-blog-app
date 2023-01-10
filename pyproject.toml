@@ -4,7 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["event1310 <event990@interia.pl>"]
 readme = "README.md"
-packages = [{include = "django_blog_app"}]
+packages = []
 
 [tool.poetry.dependencies]
 python = "^3.11"
