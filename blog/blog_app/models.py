@@ -12,10 +12,12 @@ class BaseModel(models.Model):
     class Meta:
         abstract = True
 
+
 class Post(BaseModel):
     title = models.CharField(max_length=300, unique=True)
     slug = models.SlugField(max_length=300, unique=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
+    image = models.ImageField(upload_to='images/')
     content = models.TextField()
     status = models.IntegerField(choices=STATUS, default=0)
 
@@ -27,3 +29,10 @@ class Post(BaseModel):
 
     def __str__(self):
         return self.title
+
+
+# class Comment(BaseModel):
+#     content = models.TextField()
+#     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post_comment')
