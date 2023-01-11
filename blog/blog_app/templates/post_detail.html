@@ -15,28 +15,56 @@
   <div class="row">
     <div class="col-md-8 card mb-1 mt-1 left top">
       <div class="card-body">
-        <h1>{% block title %} {{ object.title }} {% endblock title %}</h1>
+        <h1>{% block title %} {{ post.title }} {% endblock title %}</h1>
         <p class=" text-muted">{{ post.author }} | {{ post.created_at }}</p>
-        <p class="card-text ">{{ object.content | safe }}</p>
+        <p class="card-text ">{{ post.content | safe }}</p>
         <img style="width: 95%" src="/media/{{ post.image }}" alt="My image">
       </div>
     </div>
 
       {% block sidebar %} {% include 'sidebar.html' %} {% endblock sidebar %}
 
-     <div class="row-md-8 card mb-2 mt-2 left comment">
-      <div class="card-body">
-        <p class=" text-muted">{{ post.author }} | {{ post.created_at }}</p>
-        <p class="card-text ">{{ object.content | safe }}</p>
-      </div>
-    </div>
-     <div class="col-md-8 card mb-2 mt-2 right">
-      <div class="card-body">
-        <input type="text" class="col-xs-2 card mb-2 mt-2 commenter_name" placeholder=" Name"></input>
-        <textarea class="form-control input-lg card mb-2 mt-2 comment" placeholder="Your comment"></textarea>
-        <a href="#" class="btn btn-danger float-right">Add comment</a>
-      </div>
-    </div>
+     <div class="col-md-8 card mb-4  mt-3 ">
+                <div class="card-body">
+                    <!-- comments -->
+                    {% with comments.count as total_comments %}
+                        <h2>{{ total_comments }} comments</h2>
+
+                        <p>
+                    {% endwith %} {% for comment in comments %}
+                        </p>
+
+                        <div class="comments" style="padding: 10px;">
+                            <p class="font-weight-bold">
+                                {{ comment.author }}
+                                <span class=" text-muted font-weight-normal">
+                                    {{ comment.created_at }}
+                                </span>
+                            </p>
+                            {{ comment.content | linebreaks }}
+                        </div>
+
+                    {% endfor %}
+                </div>
+        </div>
+
+         <div class="row-md-8 card mb-4 mt-4 left comment">
+        <div class="card-body">
+            {% if new_comment %}
+            <div class="alert alert-success" role="alert">
+              Your comment is awaiting moderation
+            </div>
+            {% else %}
+            <h3>Leave a comment</h3>
+            <form method="post" style="margin-top: 1.3em;">
+              {{ comment_form.as_p }}
+              {% csrf_token %}
+              <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+            </form>
+            {% endif %}
+       </div>
+     </div>
+
   </div>
 </div>
 
